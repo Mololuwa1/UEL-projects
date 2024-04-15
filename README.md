@@ -2,3 +2,13 @@
 
 
 # Master Degree Practical Projects
+
+#### This repository contains all the coursework and solutions submitted during my MSc Program at University of East London
+
+## General Information 
+
+##### Name: Mololuwa Obafemi-Moses
+##### School: University of East London 
+##### Degree: Msc Computing and Information Communication Technology 
+##### Academic Year: 2021/2022
+##### Location; London, United Kingdom
