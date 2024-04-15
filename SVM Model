@@ -1,0 +1,56 @@
+#import library on python 
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+#read data
+
+harth_data = pd.read_csv("/Users/mololuwaobafemimoses/Desktop/HARTH Data/harth 006.csv")
+
+#drop unnecessary data 
+
+x = harth_data.drop(['label','timestamp'], axis=1)
+y = harth_data['label']
+
+#train data set 
+from sklearn.model_selection import train_test_split
+
+x_train, x_test, y_train, y_test = train_test_split(x,y,test_size= 0.20)
+
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score 
+
+#select svm kernel 
+
+svclassifier = SVC(kernel='rbf', random_state=None, probability=True, max_iter=-1, gamma=0.0001, class_weight=None, C=1000)
+
+svclassifier.fit(x_train,y_train)
+
+y_pred = svclassifier.predict(x_test)
+
+print ("Model accuracy score with rbf kernel and C=1000.0: {0:0.4f}".format(accuracy_score(y_test,y_pred)))
+
+from sklearn.metrics import ConfusionMatrixDisplay
+
+from sklearn.metrics import classification_report, confusion_matrix
+
+#print(confusion_matrix(y_test,y_pred))
+
+print(classification_report(y_test,y_pred, zero_division=0))
+
+import seaborn as sns 
+
+cf_matrix = confusion_matrix(y_test,y_pred)
+
+ax = sns.heatmap(cf_matrix/np.sum(cf_matrix),fmt='.2%', annot=True, cmap='Blues')
+ax.set_title('HARTH Dataset Confusion Matrix\n\n')
+ax.set_xlabel('\nSVM Predicted\nC=1000 and gamma=0.0001')
+ax.set_ylabel('Ground Truth');
+
+#Ticket labels
+
+ax.xaxis.set_ticklabels(['walking','running','stairs(asc)','stairs(desc)','standing','sitting','lying','cycling(sit)','cycling(stand)'])
+ax.yaxis.set_ticklabels(['walking','running','stairs(asc)','stairs(desc)','standing','sitting','lying','cycling(sit)','cycling(stand)'])
+
+print(plt.show()) 
